@@ -5,7 +5,7 @@
         android:icon="@drawable/joker"
         android:title="Main" />
     <item
-        android:id="@+id/favourite"
+        android:id="@+id/favorite"
         android:icon="@drawable/star"
-        android:title="Favourite" />
+        android:title="Favorite" />
 </menu>

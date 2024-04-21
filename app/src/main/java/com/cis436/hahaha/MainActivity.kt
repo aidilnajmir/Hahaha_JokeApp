@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(MainFragment())
                     true
                 }
-                R.id.favourite -> {
-                    loadFragment(FavouriteFragment())
+                R.id.favorite -> {
+                    loadFragment(FavoriteFragment())
                     true
                 }
                 else -> {
