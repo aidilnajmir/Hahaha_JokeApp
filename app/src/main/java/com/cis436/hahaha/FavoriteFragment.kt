@@ -13,10 +13,13 @@ import com.cis436.hahaha.databinding.FragmentFavoriteBinding
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
-    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
-    private lateinit var jokesAdapter: JokesAdapter
+
     private lateinit var favouriteJokesViewModel: FavoriteJokesViewModel
+
+    private val jokesAdapter = JokesAdapter { joke ->
+        favouriteJokesViewModel.removeFavoriteJoke(joke.id)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,12 +32,8 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         favouriteJokesViewModel = ViewModelProvider(requireActivity()).get(FavoriteJokesViewModel::class.java)
-
-        // Initialize the adapter
-        jokesAdapter = JokesAdapter()
-
-
         // Setup the RecyclerView with a LinearLayoutManager and the adapter
         binding.favoriteJokesRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -43,17 +42,17 @@ class FavoriteFragment : Fragment() {
 
         // Observe the LiveData from the ViewModel
         favouriteJokesViewModel.favoriteJokes.observe(viewLifecycleOwner) { jokes ->
-
-            for (joke in jokes) {
+            // Logging for debugging - can be removed or adjusted as necessary
+            jokes.forEach { joke ->
                 Log.d("FavoriteJokesViewModel", "Favorite Joke: $joke")
             }
+            // Submit the new list to the adapter
             jokesAdapter.submitList(jokes)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Clean up the binding to avoid memory leaks
-        _binding = null
+        _binding = null // Clean up the binding to avoid memory leaks
     }
 }

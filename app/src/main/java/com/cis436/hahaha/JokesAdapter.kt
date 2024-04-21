@@ -7,21 +7,34 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cis436.hahaha.databinding.ItemJokeBinding
 
-class JokesAdapter : ListAdapter<Joke, JokesAdapter.JokeViewHolder>(DiffCallback()) {
+class JokesAdapter(private val onRemoveJoke: (Joke) -> Unit)
+    : ListAdapter<Joke, JokesAdapter.JokeViewHolder>(DiffCallback()) {
 
+    // Override the onCreateViewHolder to pass the 'onRemoveJoke' callback to the ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokeViewHolder {
         val binding = ItemJokeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return JokeViewHolder(binding)
+        return JokeViewHolder(binding, onRemoveJoke)
     }
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class JokeViewHolder(private var binding: ItemJokeBinding) : RecyclerView.ViewHolder(binding.root) {
+    // Include callback in the ViewHolder class
+    class JokeViewHolder(
+        private var binding: ItemJokeBinding,
+        private val onRemoveJoke: (Joke) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(joke: Joke) {
-            val context = itemView.context
-            binding.jokeContent.text = context.getString(R.string.joke_content, joke.contentPart1, joke.contentPart2)
+            binding.tvJokeContent.text = joke.contentPart1
+            if (joke.contentPart2.isNotEmpty()) {
+                binding.tvJokeContent.append("\n\n${joke.contentPart2}")
+            }
+
+            // Set the click listener for the remove button
+            binding.btnRemoveJoke.setOnClickListener {
+                onRemoveJoke(joke)
+            }
         }
     }
 

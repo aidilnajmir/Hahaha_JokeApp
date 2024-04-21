@@ -17,6 +17,9 @@ class FavoriteJokesViewModel : ViewModel() {
 
     fun removeFavoriteJoke(jokeId: Int) {
         val currentList = _favoriteJokes.value ?: return
-        _favoriteJokes.value = currentList.filterNot { it.id == jokeId }
+        _favoriteJokes.value = currentList.filterNot { it.id == jokeId }.also {
+            Log.d("FavoriteJokesViewModel", "Updated favorites list: $it")
+        }
     }
+
 }
