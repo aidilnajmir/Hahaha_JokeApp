@@ -33,8 +33,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        currentJokeViewModel = ViewModelProvider(this).get(CurrentJokeViewModel::class.java)
-        favouriteJokesViewModel = ViewModelProvider(this).get(FavoriteJokesViewModel::class.java)
+        currentJokeViewModel = ViewModelProvider(requireActivity()).get(CurrentJokeViewModel::class.java)
+        favouriteJokesViewModel = ViewModelProvider(requireActivity()).get(FavoriteJokesViewModel::class.java)
         getRandomJoke()
         observeViewModel()
 
@@ -84,11 +84,11 @@ class MainFragment : Fragment() {
                     contentPart2,
                 )
                 currentJokeViewModel.setJoke(joke)
-                Log.d("MainFragment", "Joke Id: $id")
-                Log.d("MainFragment", "Joke Category: $category")
-                Log.d("MainFragment", "Joke Type: $type")
-                Log.d("MainFragment", "Joke Part 1: $contentPart1")
-                Log.d("MainFragment", "Joke Part 2: $contentPart2")
+//                Log.d("MainFragment", "Joke Id: $id")
+//                Log.d("MainFragment", "Joke Category: $category")
+//                Log.d("MainFragment", "Joke Type: $type")
+//                Log.d("MainFragment", "Joke Part 1: $contentPart1")
+//                Log.d("MainFragment", "Joke Part 2: $contentPart2")
             },
             {
                 Log.e("MainFragment", "This is not funny: Failed to get a joke.")
@@ -104,9 +104,8 @@ class MainFragment : Fragment() {
     }
 
     private fun saveJoke() {
-        currentJokeViewModel.currentJoke.observe(viewLifecycleOwner) { joke ->
-            favouriteJokesViewModel.addFavouriteJoke(joke)
-        }
+        val joke = currentJokeViewModel.currentJoke.value ?: return
+        favouriteJokesViewModel.addFavouriteJoke(joke)
     }
 
 }

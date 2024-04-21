@@ -1,16 +1,9 @@
 package com.cis436.hahaha
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
-data class Joke(
-    val id: Int,
-    val category: String,
-    val type: String,
-    val contentPart1: String,
-    val contentPart2: String = ""
-)
 
 class FavoriteJokesViewModel : ViewModel() {
     private val _favoriteJokes = MutableLiveData<List<Joke>>()

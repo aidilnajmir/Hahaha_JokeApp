@@ -1,0 +1,9 @@
+package com.cis436.hahaha
+
+data class Joke(
+    val id: Int,
+    val category: String,
+    val type: String,
+    val contentPart1: String,
+    val contentPart2: String = ""
+)
