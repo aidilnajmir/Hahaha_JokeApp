@@ -105,7 +105,7 @@ class MainFragment : Fragment() {
 
     private fun saveJoke() {
         currentJokeViewModel.currentJoke.observe(viewLifecycleOwner) { joke ->
-            favouriteJokesViewModel.addFavoriteJoke(joke)
+            favouriteJokesViewModel.addFavouriteJoke(joke)
         }
     }
 
