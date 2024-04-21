@@ -46,6 +46,10 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
-    implementation 'com.android.volley:volley:1.2.1'
+    implementation libs.volley
+    implementation libs.material.v130
+    implementation libs.androidx.fragment.ktx
+    implementation libs.androidx.recyclerview
+    implementation libs.androidx.lifecycle.viewmodel.ktx.v231
 
 }

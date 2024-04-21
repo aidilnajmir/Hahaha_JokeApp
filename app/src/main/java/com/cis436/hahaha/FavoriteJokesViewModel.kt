@@ -17,7 +17,7 @@ class FavoriteJokesViewModel : ViewModel() {
     val favoriteJokes: LiveData<List<Joke>>
         get() = _favoriteJokes
 
-    fun addFavoriteJoke(joke: Joke) {
+    fun addFavouriteJoke(joke: Joke) {
         val currentList = _favoriteJokes.value ?: emptyList()
         _favoriteJokes.value = currentList + joke
     }

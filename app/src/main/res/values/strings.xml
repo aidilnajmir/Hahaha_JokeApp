@@ -2,4 +2,5 @@
     <string name="app_name">Hahaha</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="joke_content">%1$s\n\n%2$s</string>
 </resources>
