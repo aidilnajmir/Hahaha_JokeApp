@@ -13,6 +13,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.cis436.hahaha.databinding.FragmentMainBinding
+import androidx.fragment.app.DialogFragment
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -35,7 +36,9 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         currentJokeViewModel = ViewModelProvider(requireActivity()).get(CurrentJokeViewModel::class.java)
         favouriteJokesViewModel = ViewModelProvider(requireActivity()).get(FavoriteJokesViewModel::class.java)
-        getRandomJoke()
+        if (!currentJokeViewModel.firstJokeGenerated) {
+            getRandomJoke()
+        }
         observeViewModel()
 
         binding.btnGetJoke.setOnClickListener{
@@ -45,6 +48,11 @@ class MainFragment : Fragment() {
 
         binding.btnSaveJoke.setOnClickListener{
             saveJoke()
+        }
+
+        binding.btnCustomizeJoke.setOnClickListener {
+            val customizeJokeFragment = CustomizeJokeFragment()
+            customizeJokeFragment.show(parentFragmentManager, "CustomizeJokeFragment")
         }
 
     }

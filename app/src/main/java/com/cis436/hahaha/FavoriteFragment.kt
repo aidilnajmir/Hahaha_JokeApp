@@ -40,12 +40,20 @@ class FavoriteFragment : Fragment() {
             adapter = jokesAdapter
         }
 
+        // Find the empty image view and text view
+        val emptyImageView = binding.emptyImageView
+        val emptyTextView = binding.tvNoFavoriteJokesLabel
+
         // Observe the LiveData from the ViewModel
         favouriteJokesViewModel.favoriteJokes.observe(viewLifecycleOwner) { jokes ->
             // Logging for debugging - can be removed or adjusted as necessary
             jokes.forEach { joke ->
                 Log.d("FavoriteJokesViewModel", "Favorite Joke: $joke")
             }
+            // Show the empty image view if there are no jokes
+            emptyImageView.visibility = if (jokes.isEmpty()) View.VISIBLE else View.GONE
+            emptyTextView.visibility = if (jokes.isEmpty()) View.VISIBLE else View.GONE
+
             // Submit the new list to the adapter
             jokesAdapter.submitList(jokes)
         }

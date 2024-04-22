@@ -6,13 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class FavoriteJokesViewModel : ViewModel() {
-    private val _favoriteJokes = MutableLiveData<List<Joke>>()
+    private val _favoriteJokes = MutableLiveData<List<Joke>>(emptyList())
     val favoriteJokes: LiveData<List<Joke>>
         get() = _favoriteJokes
 
     fun addFavouriteJoke(joke: Joke) {
         val currentList = _favoriteJokes.value ?: emptyList()
-        _favoriteJokes.value = currentList + joke
+        if (!currentList.any { it.id == joke.id }) {
+            _favoriteJokes.value = currentList + joke
+        }
     }
 
     fun removeFavoriteJoke(jokeId: Int) {
