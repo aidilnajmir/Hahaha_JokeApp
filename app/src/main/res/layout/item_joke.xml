@@ -3,27 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="2dp">
+    android:layout_marginLeft="50px"
+    android:layout_marginTop="50px"
+    android:layout_marginRight="50px"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvJokeContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnRemoveJoke"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Remove" />
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#B3DAF8"
+            android:text="Remove"
+            android:textColor="#434343"
+            app:cornerRadius="8dp" />
 
     </LinearLayout>
 

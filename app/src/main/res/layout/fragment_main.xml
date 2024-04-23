@@ -8,82 +8,120 @@
     android:layout_margin="8dp"
     tools:context=".MainFragment">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/btnCustomizeJoke"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="#B3DAF8"
+        android:text="Customize Joke"
+        android:textColor="#434343"
+        app:cornerRadius="8dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
-            android:id="@+id/btnCustomizeJoke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Customize Joke" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/JokeContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnCustomizeJoke"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnGetJoke">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/JokeContainer"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="2dp">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-                <ScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/imgJoke"
+                        android:layout_width="wrap_content"
+                        android:layout_height="225dp"
+                        android:layout_gravity="center" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <TextView
+                        android:id="@+id/tvContentPart1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="Part 1"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                        <ImageView
-                            android:id="@+id/imgCategory"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/joker" />
+                    <TextView
+                        android:id="@+id/tvContentPart2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="Part 2"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold|italic" />
+                </LinearLayout>
+            </ScrollView>
 
-                        <TextView
-                            android:id="@+id/tvContentPart1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Part 1" />
+            <TextView
+                android:id="@+id/saveJokeLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="Like the joke?" />
 
-                        <TextView
-                            android:id="@+id/tvContentPart2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Part 2" />
-                    </LinearLayout>
-                </ScrollView>
+            <Button
+                android:id="@+id/btnSaveJoke"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:backgroundTint="#B3DAF8"
+                android:text="Save Joke"
+                android:textColor="#434343"
+                app:cornerRadius="0dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/saveJokeLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Like the joke?" />
+    <Button
+        android:id="@+id/btnGetJoke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="#B3DAF8"
+        android:text="Get Joke"
+        android:textColor="#434343"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-                <Button
-                    android:id="@+id/btnSaveJoke"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Save Joke" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/btnGetJoke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Joke" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

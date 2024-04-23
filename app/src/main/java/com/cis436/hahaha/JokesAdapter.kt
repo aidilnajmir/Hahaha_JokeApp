@@ -1,5 +1,8 @@
 package com.cis436.hahaha
 
+import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -18,6 +21,19 @@ class JokesAdapter(private val onRemoveJoke: (Joke) -> Unit)
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
         holder.bind(getItem(position))
+
+        // Check if the current item is the last one
+        if (position == itemCount - 1) {
+            // Set a bottom margin for the last item
+            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = 50
+            holder.itemView.layoutParams = layoutParams
+        } else {
+            // Reset the bottom margin for other items
+            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = 0
+            holder.itemView.layoutParams = layoutParams
+        }
     }
 
     // Include callback in the ViewHolder class
@@ -26,9 +42,11 @@ class JokesAdapter(private val onRemoveJoke: (Joke) -> Unit)
         private val onRemoveJoke: (Joke) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(joke: Joke) {
-            binding.tvJokeContent.text = joke.contentPart1
+            binding.tvJokeContent.text = "\"${joke.contentPart1}\""
             if (joke.contentPart2.isNotEmpty()) {
-                binding.tvJokeContent.append("\n\n${joke.contentPart2}")
+                val italicizedText = SpannableString("\n\n\"${joke.contentPart2}\"")
+                italicizedText.setSpan(StyleSpan(Typeface.ITALIC), 0, italicizedText.length, 0)
+                binding.tvJokeContent.append(italicizedText)
             }
 
             // Set the click listener for the remove button
@@ -47,4 +65,6 @@ class JokesAdapter(private val onRemoveJoke: (Joke) -> Unit)
             return oldItem == newItem
         }
     }
+
+
 }

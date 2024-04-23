@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:backgroundTint="#03000000"
     tools:context=".MainActivity">
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottomNav"
-        />
+        android:layout_above="@+id/bottomNav" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,7 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:hapticFeedbackEnabled="false"
         android:scrollIndicators="left"
+        app:backgroundTint="#51B3DAF8"
+        app:itemActiveIndicatorStyle="@style/Theme.Material3.DynamicColors.Dark"
+        app:itemIconTint="#434343"
+        app:itemRippleColor="#B3DAF8"
+        app:itemTextAppearanceActiveBoldEnabled="true"
+        app:itemTextColor="#434343"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

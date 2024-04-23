@@ -1,6 +1,5 @@
 package com.cis436.hahaha
 
-import android.R
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import com.android.volley.toolbox.Volley
 import com.cis436.hahaha.databinding.FragmentMainBinding
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleObserver
+import com.bumptech.glide.Glide
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -25,6 +25,16 @@ class MainFragment : Fragment() {
     private lateinit var currentJokeViewModel: CurrentJokeViewModel
     private lateinit var favouriteJokesViewModel: FavoriteJokesViewModel
     private lateinit var currentJokeUrlViewModel: CurrentJokeUrlViewModel
+    private val categoryImages : Array<Int> = arrayOf(
+        R.drawable.programming,
+        R.drawable.programming,
+        R.drawable.programming,
+        R.drawable.programming,
+        //R.drawable.pun,
+        //R.drawable.spooky,
+        //R.drawable.christmas,
+        R.drawable.unknown
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,12 +92,12 @@ class MainFragment : Fragment() {
             { response ->
                 val jsonJoke = JSONObject(response)
                 val error = jsonJoke.getString("error")
-                var contentPart1 = ""
-                var contentPart2 = ""
                 if (error == "false") {
                     val id = jsonJoke.getInt("id")
                     val category = jsonJoke.getString("category")
                     val type = jsonJoke.getString("type")
+                    var contentPart1 = ""
+                    var contentPart2 = ""
                     if (type == "single") {
                         contentPart1 = jsonJoke.getString("joke")
                     } else {
@@ -114,13 +124,12 @@ class MainFragment : Fragment() {
                         0,
                         "unknown",
                         "unknown",
-                        "No joke available.",
-                        "Please revise your customization.",
+                        "No joke available.\"\n\"Please change your customization.",
+                        "",
                     )
                     currentJokeViewModel.setJoke(joke)
                     Log.e("MainFragment", "This is not funny: No joke available.")
                 }
-
             },
             {
                 Log.e("MainFragment", "This is not funny: Failed to get a joke.")
@@ -130,10 +139,38 @@ class MainFragment : Fragment() {
 
     private fun observeViewModel() {
         currentJokeViewModel.currentJoke.observe(viewLifecycleOwner) { joke ->
-            binding.tvContentPart1.text = joke.contentPart1
-            binding.tvContentPart2.text = joke.contentPart2
+            binding.tvContentPart1.text = "\"${joke.contentPart1}\""
+            binding.tvContentPart2.text = "\"${joke.contentPart2}\""
+            binding.tvContentPart2.visibility = if (joke.type.contains("twopart")) View.VISIBLE else View.GONE
             binding.saveJokeLabel.visibility = if (joke.category == "unknown") View.GONE else View.VISIBLE
             binding.btnSaveJoke.visibility = if (joke.category == "unknown") View.GONE else View.VISIBLE
+            when (joke.category) {
+                "Programming" -> {
+                    Glide.with(this)
+                        .load(categoryImages[0])
+                        .into(binding.imgJoke)
+                }
+                "Pun" -> {
+                    Glide.with(this)
+                        .load(categoryImages[1])
+                        .into(binding.imgJoke)
+                }
+                "Spooky" -> {
+                    Glide.with(this)
+                        .load(categoryImages[2])
+                        .into(binding.imgJoke)
+                }
+                "Christmas" -> {
+                    Glide.with(this)
+                        .load(categoryImages[3])
+                        .into(binding.imgJoke)
+                }
+                else -> {
+                    Glide.with(this)
+                        .load(categoryImages[4])
+                        .into(binding.imgJoke)
+                }
+            }
         }
     }
 
@@ -141,5 +178,4 @@ class MainFragment : Fragment() {
         val joke = currentJokeViewModel.currentJoke.value ?: return
         favouriteJokesViewModel.addFavouriteJoke(joke)
     }
-
 }

@@ -14,9 +14,7 @@ class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var favouriteJokesViewModel: FavoriteJokesViewModel
-
     private val jokesAdapter = JokesAdapter { joke ->
         favouriteJokesViewModel.removeFavoriteJoke(joke.id)
     }

@@ -3,7 +3,8 @@
     <item
         android:id="@+id/main"
         android:icon="@drawable/joker"
-        android:title="Main" />
+        android:title="Main"
+        android:visible="true" />
     <item
         android:id="@+id/favorite"
         android:icon="@drawable/star"

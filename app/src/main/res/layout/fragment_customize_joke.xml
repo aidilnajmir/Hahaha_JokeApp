@@ -39,26 +39,34 @@
                     android:id="@+id/checkBoxProgramming"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="#B3DAF8"
                     android:checked="false"
-                    android:text="Programming" />
+                    android:text="Programming"
+                    app:buttonIconTint="#434343" />
 
                 <CheckBox
                     android:id="@+id/checkBoxPun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pun" />
+                    android:buttonTint="#B3DAF8"
+                    android:text="Pun"
+                    app:buttonIconTint="#434343" />
 
                 <CheckBox
                     android:id="@+id/checkBoxSpooky"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Spooky" />
+                    android:buttonTint="#B3DAF8"
+                    android:text="Spooky"
+                    app:buttonIconTint="#434343" />
 
                 <CheckBox
                     android:id="@+id/checkBoxChristmas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Christmas" />
+                    android:buttonTint="#B3DAF8"
+                    android:text="Christmas"
+                    app:buttonIconTint="#434343" />
 
             </LinearLayout>
 
@@ -80,13 +88,17 @@
                     android:id="@+id/checkBoxSingle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Single" />
+                    android:buttonTint="#B3DAF8"
+                    android:text="Single"
+                    app:buttonIconTint="#434343" />
 
                 <CheckBox
                     android:id="@+id/checkBoxTwoParts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Two parts" />
+                    android:buttonTint="#B3DAF8"
+                    android:text="Two parts"
+                    app:buttonIconTint="#434343" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,7 +125,9 @@
                 android:id="@+id/btnOK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="OK" />
+                android:backgroundTint="#B3DAF8"
+                android:text="OK"
+                android:textColor="#434343" />
 
         </LinearLayout>
     </ScrollView>
