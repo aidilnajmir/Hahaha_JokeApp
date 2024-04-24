@@ -63,8 +63,6 @@ class FavoriteFragment : Fragment() {
                 emptyTextView.visibility = View.GONE
             }
 
-//            emptyTextView.visibility = if (jokes.isEmpty()) View.VISIBLE else View.GONE
-
             // Submit the new list to the adapter
             jokesAdapter.submitList(jokes)
         }
