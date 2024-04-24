@@ -7,9 +7,6 @@ import androidx.lifecycle.ViewModel
 
 class CurrentJokeUrlViewModel : ViewModel() {
 
-//    private val _url = MutableLiveData<String>()
-//    val url : LiveData<String> get() = _url
-
     private val _jokeUrlCustomization = MutableLiveData<JokeUrlCustomization>(JokeUrlCustomization())
     val jokeUrlCustomization : LiveData<JokeUrlCustomization> get() = _jokeUrlCustomization
 
@@ -34,13 +31,9 @@ class CurrentJokeUrlViewModel : ViewModel() {
     private val _searchString = MutableLiveData<String>()
     val searchString : LiveData<String> get() = _searchString
 
-//    fun setUrl(url: String) {
-//        _url.value = url
-//    }
-
     fun updateUrl(jokeUrlCustomization: JokeUrlCustomization) {
         if (jokeUrlCustomization.categories.isNotEmpty()) {
-            val categories = listOf("Programming", "Pun", "Spooky", "Christmas").filter {
+            val categories = listOf("Programming", "Pun", "Spooky", "Christmas", "Misc", "Dark").filter {
                 jokeUrlCustomization.categories.contains(it)
             }.joinToString(",")
 
@@ -55,6 +48,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
                 if (jokeUrlCustomization.searchString.isNotEmpty()) "?contains=${jokeUrlCustomization.searchString}"
                 else ""
 
+            //val apiUrl = "https://v2.jokeapi.dev/joke/Miscellaneous,Dark," +
             val apiUrl = "https://v2.jokeapi.dev/joke/" +
                     categories +
                     types +
@@ -161,5 +155,17 @@ class CurrentJokeUrlViewModel : ViewModel() {
         val customization = _jokeUrlCustomization.value ?: return
         _jokeUrlCustomization.value = customization.copy(searchString = searchString)
         updateUrl(_jokeUrlCustomization.value!!)
+    }
+
+    fun isAtLeastOneCategorySelected(): Boolean {
+        return _isProgrammingCategorySelected.value == true ||
+                _isPunCategorySelected.value == true ||
+                _isSpookyCategorySelected.value == true ||
+                _isChristmasCategorySelected.value == true
+    }
+
+    fun isAtLeastOneTypeSelected(): Boolean {
+        return _isSingleTypeSelected.value == true ||
+                _isTwoPartsTypeSelected.value == true
     }
 }

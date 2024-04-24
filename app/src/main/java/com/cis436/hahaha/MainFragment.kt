@@ -27,12 +27,9 @@ class MainFragment : Fragment() {
     private lateinit var currentJokeUrlViewModel: CurrentJokeUrlViewModel
     private val categoryImages : Array<Int> = arrayOf(
         R.drawable.programming,
-        R.drawable.programming,
-        R.drawable.programming,
-        R.drawable.programming,
-        //R.drawable.pun,
-        //R.drawable.spooky,
-        //R.drawable.christmas,
+        R.drawable.pun,
+        R.drawable.spooky,
+        R.drawable.christmas,
         R.drawable.unknown
     )
 
@@ -80,10 +77,6 @@ class MainFragment : Fragment() {
         // Define url to get cat data
         var jokeUrl = currentJokeUrlViewModel.jokeUrlCustomization.value?.apiUrl ?: ""
 
-//        currentJokeUrlViewModel.jokeUrlCustomization.observe(viewLifecycleOwner) { jokeUrlCustomization ->
-//            jokeUrl = jokeUrlCustomization.apiUrl
-//        }
-
         val queue = Volley.newRequestQueue(requireContext())
 
         // Make request through GET method of API call to get cat data
@@ -112,12 +105,7 @@ class MainFragment : Fragment() {
                         contentPart2,
                     )
                     currentJokeViewModel.setJoke(joke)
-//                Log.d("MainFragment", "Joke Id: $id")
-                    Log.d("Has error?", "$error")
-//                Log.d("MainFragment", "Joke Category: $category")
-                    //               Log.d("MainFragment", "Joke Type: $type")
-//                Log.d("MainFragment", "Joke Part 1: $contentPart1")
-//                Log.d("MainFragment", "Joke Part 2: $contentPart2")
+                    Log.d("Joke", "${currentJokeViewModel.currentJoke.value}")
                 }
                 else {
                     val joke = Joke(
@@ -128,7 +116,7 @@ class MainFragment : Fragment() {
                         "",
                     )
                     currentJokeViewModel.setJoke(joke)
-                    Log.e("MainFragment", "This is not funny: No joke available.")
+                    Log.d("MainFragment", "This is not funny: No joke available.")
                 }
             },
             {

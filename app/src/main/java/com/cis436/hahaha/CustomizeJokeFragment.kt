@@ -1,5 +1,6 @@
 package com.cis436.hahaha
 
+import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -12,16 +13,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.cis436.hahaha.databinding.FragmentCustomizeJokeBinding
 import com.cis436.hahaha.databinding.FragmentMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class CustomizeJokeFragment : DialogFragment() {
     private var _binding: FragmentCustomizeJokeBinding? = null
     private val binding get() = _binding!!
     private lateinit var currentJokeUrlViewModel: CurrentJokeUrlViewModel
     private lateinit var jokeUrlCustomization : JokeUrlCustomization
-//    private val baseUrl : String = jokeUrlCustomization.apiUrl
-//    private lateinit var urlCategoryPath : String
-//    private lateinit var urlTypePath : String
-//    private lateinit var urlSearchStringPath : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +39,6 @@ class CustomizeJokeFragment : DialogFragment() {
         jokeUrlCustomization = currentJokeUrlViewModel.jokeUrlCustomization.value ?: JokeUrlCustomization()
         observeViewModel()
         customizeJoke()
-
-
-        //Log.d("Attribute", "${currentJokeUrlViewModel.isProgrammingCategorySelected}")
     }
 
     private fun customizeJoke() {
@@ -78,7 +73,13 @@ class CustomizeJokeFragment : DialogFragment() {
         binding.etSearch.setText(jokeUrlCustomization.searchString)
 
         binding.btnOK.setOnClickListener {
-            dismiss()
+            if (currentJokeUrlViewModel.isAtLeastOneCategorySelected() && currentJokeUrlViewModel.isAtLeastOneTypeSelected()) {
+                dismiss()
+            } else {
+                view?.let { view ->
+                    Snackbar.make(view, "Please select at least one category and at least one type", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
