@@ -44,14 +44,21 @@ class CurrentJokeUrlViewModel : ViewModel() {
                 else -> ""
             }
 
+            var operator = if (types.isEmpty()) "?" else "&"
+
             val searchString =
-                if (jokeUrlCustomization.searchString.isNotEmpty()) "?contains=${jokeUrlCustomization.searchString}"
+                if (jokeUrlCustomization.searchString.isNotEmpty()) "contains=${jokeUrlCustomization.searchString}"
                 else ""
+
+            if (searchString.isEmpty()) {
+                operator = ""
+            }
 
             //val apiUrl = "https://v2.jokeapi.dev/joke/Miscellaneous,Dark," +
             val apiUrl = "https://v2.jokeapi.dev/joke/" +
                     categories +
                     types +
+                    operator +
                     searchString
 
             val updatedCustomization = jokeUrlCustomization.copy(apiUrl = apiUrl)
