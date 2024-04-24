@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.cis436.hahaha.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
@@ -49,8 +50,20 @@ class FavoriteFragment : Fragment() {
                 Log.d("FavoriteJokesViewModel", "Favorite Joke: $joke")
             }
             // Show the empty image view if there are no jokes
-            emptyImageView.visibility = if (jokes.isEmpty()) View.VISIBLE else View.GONE
-            emptyTextView.visibility = if (jokes.isEmpty()) View.VISIBLE else View.GONE
+            if(jokes.isEmpty()) {
+                emptyTextView.visibility = View.VISIBLE
+                emptyImageView.visibility =View.VISIBLE
+                Glide.with(this)
+                    .load(R.drawable.no_favorite)
+                    .into(emptyImageView)
+            }
+
+            else {
+                emptyImageView.visibility =View.GONE
+                emptyTextView.visibility = View.GONE
+            }
+
+//            emptyTextView.visibility = if (jokes.isEmpty()) View.VISIBLE else View.GONE
 
             // Submit the new list to the adapter
             jokesAdapter.submitList(jokes)

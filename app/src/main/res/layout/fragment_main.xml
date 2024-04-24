@@ -88,7 +88,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:gravity="center"
-                        android:text="Like the joke?" />
+                        android:text="Funny ah? Save ma.." />
 
                     <Button
                         android:id="@+id/btnSaveJoke"
