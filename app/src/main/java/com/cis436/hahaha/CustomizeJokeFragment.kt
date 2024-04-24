@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -77,7 +78,13 @@ class CustomizeJokeFragment : DialogFragment() {
                 dismiss()
             } else {
                 view?.let { view ->
-                    Snackbar.make(view, "Please select at least one category and at least one type", Snackbar.LENGTH_SHORT).show()
+                    view?.let { view ->
+                        val snackbar = Snackbar.make(view, "Blank is not funny.\nPlease select at least one\ncategory and type.", Snackbar.LENGTH_SHORT)
+                        snackbar.setAction("OK") {
+                        }
+                        snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)?.maxLines = 5
+                        snackbar.show()
+                    }
                 }
             }
         }
