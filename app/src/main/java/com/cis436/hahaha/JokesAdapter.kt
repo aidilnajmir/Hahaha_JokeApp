@@ -20,20 +20,13 @@ class JokesAdapter(private val onRemoveJoke: (Joke) -> Unit)
     }
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
+        // Display the item
         holder.bind(getItem(position))
 
-        // Check if the current item is the last one
-        if (position == itemCount - 1) {
-            // Set a bottom margin for the last item
-            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.bottomMargin = 50
-            holder.itemView.layoutParams = layoutParams
-        } else {
-            // Reset the bottom margin for other items
-            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.bottomMargin = 0
-            holder.itemView.layoutParams = layoutParams
-        }
+        // Set a bottom margin for the last item
+        val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.bottomMargin = if (position == itemCount - 1) 50 else 0
+        holder.itemView.layoutParams = layoutParams
     }
 
     // Include callback in the ViewHolder class
@@ -41,8 +34,10 @@ class JokesAdapter(private val onRemoveJoke: (Joke) -> Unit)
         private var binding: ItemJokeBinding,
         private val onRemoveJoke: (Joke) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+        // method to display joke's content
         fun bind(joke: Joke) {
             binding.tvJokeContent.text = "\"${joke.contentPart1}\""
+            // Display content 2 in italic format
             if (joke.contentPart2.isNotEmpty()) {
                 val italicizedText = SpannableString("\n\n\"${joke.contentPart2}\"")
                 italicizedText.setSpan(StyleSpan(Typeface.ITALIC), 0, italicizedText.length, 0)

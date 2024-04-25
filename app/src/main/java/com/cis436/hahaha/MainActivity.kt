@@ -16,7 +16,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Load main screen
         loadFragment(MainFragment())
+        // Set the bottom navigation bar for user to navigate between main screen and favorite screen
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)!!
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -35,10 +37,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    // method to load a fragment
     private fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container,fragment)
         transaction.commit()
     }
-
 }

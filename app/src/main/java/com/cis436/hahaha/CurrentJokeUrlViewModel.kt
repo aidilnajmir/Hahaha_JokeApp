@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 
 class CurrentJokeUrlViewModel : ViewModel() {
 
+    // Save the joke's customizations information
+
     private val _jokeUrlCustomization = MutableLiveData<JokeUrlCustomization>(JokeUrlCustomization())
     val jokeUrlCustomization : LiveData<JokeUrlCustomization> get() = _jokeUrlCustomization
 
@@ -31,29 +33,37 @@ class CurrentJokeUrlViewModel : ViewModel() {
     private val _searchString = MutableLiveData<String>()
     val searchString : LiveData<String> get() = _searchString
 
+    // method to update the api url when there are any changes in customization
     fun updateUrl(jokeUrlCustomization: JokeUrlCustomization) {
         if (jokeUrlCustomization.categories.isNotEmpty()) {
+            // Create a category string to be appended to the url from the current customization
             val categories = listOf("Programming", "Pun", "Spooky", "Christmas", "Misc", "Dark").filter {
                 jokeUrlCustomization.categories.contains(it)
             }.joinToString(",")
 
+            // Create the type string to be appended to the url from the current customization
             val types = when {
+                // When it has both single and two parts, just assign it an empty string
                 jokeUrlCustomization.types.contains("single") && jokeUrlCustomization.types.contains("twopart") -> ""
                 jokeUrlCustomization.types.contains("single") -> "?type=single"
                 jokeUrlCustomization.types.contains("twopart") -> "?type=twopart"
                 else -> ""
             }
 
+            // If type is not an empty string, there may be two query criterias, so the operator is &
             var operator = if (types.isEmpty()) "?" else "&"
 
+            // Create a search string to be appended to the url from the current customization
             val searchString =
                 if (jokeUrlCustomization.searchString.isNotEmpty()) "contains=${jokeUrlCustomization.searchString}"
                 else ""
 
+            // If there is no search string, we does not need the operator
             if (searchString.isEmpty()) {
                 operator = ""
             }
 
+            // Join the strings to form a complete api url based on the current user's customization
             //val apiUrl = "https://v2.jokeapi.dev/joke/Miscellaneous,Dark," +
             val apiUrl = "https://v2.jokeapi.dev/joke/" +
                     categories +
@@ -61,12 +71,14 @@ class CurrentJokeUrlViewModel : ViewModel() {
                     operator +
                     searchString
 
+            // Update the data
             val updatedCustomization = jokeUrlCustomization.copy(apiUrl = apiUrl)
             _jokeUrlCustomization.value = updatedCustomization
             Log.d("URL", "${_jokeUrlCustomization.value}")
         }
     }
 
+    // method to update attribute and api url when the programming category is selected or deselected
     fun setIsProgrammingCategorySelected(isSelected : Boolean) {
         _isProgrammingCategorySelected.value = isSelected
         val customization = _jokeUrlCustomization.value ?: return
@@ -82,6 +94,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
         updateUrl(_jokeUrlCustomization.value!!)
     }
 
+    // method to update attribute and api url when the pun category is selected or deselected
     fun setIsPunCategorySelected(isSelected : Boolean) {
         _isPunCategorySelected.value = isSelected
         val customization = _jokeUrlCustomization.value ?: return
@@ -97,6 +110,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
         updateUrl(_jokeUrlCustomization.value!!)
     }
 
+    // method to update attribute and api url when the spooky category is selected or deselected
     fun setIsSpookyCategorySelected(isSelected : Boolean) {
         _isSpookyCategorySelected.value = isSelected
         val customization = _jokeUrlCustomization.value ?: return
@@ -112,6 +126,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
         updateUrl(_jokeUrlCustomization.value!!)
     }
 
+    // method to update attribute and api url when the christmas category is selected or deselected
     fun setIsChristmasCategorySelected(isSelected : Boolean) {
         _isChristmasCategorySelected.value = isSelected
         val customization = _jokeUrlCustomization.value ?: return
@@ -127,6 +142,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
         updateUrl(_jokeUrlCustomization.value!!)
     }
 
+    // method to update attribute and api url when the single type is selected or deselected
     fun setIsSingleTypeSelected(isSelected : Boolean) {
         _isSingleTypeSelected.value = isSelected
         val customization = _jokeUrlCustomization.value ?: return
@@ -142,6 +158,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
         updateUrl(_jokeUrlCustomization.value!!)
     }
 
+    // method to update attribute and api url when the two parts type is selected or deselected
     fun setIsTwoPartsTypeSelected(isSelected : Boolean) {
         _isTwoPartsTypeSelected.value = isSelected
         val customization = _jokeUrlCustomization.value ?: return
@@ -157,6 +174,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
         updateUrl(_jokeUrlCustomization.value!!)
     }
 
+    // method to update attribute and api url when the search string is entered
     fun setSearchString(searchString : String) {
         _searchString.value = searchString
         val customization = _jokeUrlCustomization.value ?: return
@@ -164,6 +182,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
         updateUrl(_jokeUrlCustomization.value!!)
     }
 
+    // method to check if the user selects at least one category
     fun isAtLeastOneCategorySelected(): Boolean {
         return _isProgrammingCategorySelected.value == true ||
                 _isPunCategorySelected.value == true ||
@@ -171,6 +190,7 @@ class CurrentJokeUrlViewModel : ViewModel() {
                 _isChristmasCategorySelected.value == true
     }
 
+    // method to check if the user selects at least one type
     fun isAtLeastOneTypeSelected(): Boolean {
         return _isSingleTypeSelected.value == true ||
                 _isTwoPartsTypeSelected.value == true

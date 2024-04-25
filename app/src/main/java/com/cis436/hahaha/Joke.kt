@@ -1,5 +1,6 @@
 package com.cis436.hahaha
 
+// This is the data structure of a joke
 data class Joke(
     val id: Int,
     val category: String,

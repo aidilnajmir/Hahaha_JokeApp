@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.cis436.hahaha.databinding.FragmentFavoriteBinding
 
+// This fragment displays the jokes saved by user in a recycler view
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
@@ -45,10 +46,6 @@ class FavoriteFragment : Fragment() {
 
         // Observe the LiveData from the ViewModel
         favouriteJokesViewModel.favoriteJokes.observe(viewLifecycleOwner) { jokes ->
-            // Logging for debugging - can be removed or adjusted as necessary
-            jokes.forEach { joke ->
-                Log.d("FavoriteJokesViewModel", "Favorite Joke: $joke")
-            }
             // Show the empty image view if there are no jokes
             if(jokes.isEmpty()) {
                 emptyTextView.visibility = View.VISIBLE
@@ -57,7 +54,6 @@ class FavoriteFragment : Fragment() {
                     .load(R.drawable.no_favorite)
                     .into(emptyImageView)
             }
-
             else {
                 emptyImageView.visibility =View.GONE
                 emptyTextView.visibility = View.GONE
